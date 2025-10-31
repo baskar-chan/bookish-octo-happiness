@@ -1,0 +1,30 @@
+// تمام کدهای API اینجا
+class EitaaAPI {
+    constructor(token) {
+        this.token = token;
+        this.baseURL = "https://api.eitaa.com";
+    }
+    
+    async sendMessage(chatId, text) {
+        try {
+            const response = await fetch(
+                `${this.baseURL}/sendMessage?token=${this.token}&chat_id=${chatId}&text=${encodeURIComponent(text)}`
+            );
+            return await response.json();
+        } catch (error) {
+            return { ok: false, error: error.message };
+        }
+    }
+    
+    async getMe() {
+        try {
+            const response = await fetch(`${this.baseURL}/getMe?token=${this.token}`);
+            return await response.json();
+        } catch (error) {
+            return { ok: false, error: error.message };
+        }
+    }
+}
+
+// استفاده
+const eitaa = new EitaaAPI("bot418506:17ca931f-7807-4de8-844c-07b815cb3a95");
