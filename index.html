@@ -1,30 +1,32 @@
-// تمام کدهای API اینجا
-class EitaaAPI {
-    constructor(token) {
-        this.token = token;
-        this.baseURL = "https://api.eitaa.com";
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>برنامه ایتای من</title>
+</head>
+<body>
+    <h1>برنامه من و ایتا</h1>
     
-    async sendMessage(chatId, text) {
-        try {
-            const response = await fetch(
-                `${this.baseURL}/sendMessage?token=${this.token}&chat_id=${chatId}&text=${encodeURIComponent(text)}`
-            );
-            return await response.json();
-        } catch (error) {
-            return { ok: false, error: error.message };
-        }
-    }
-    
-    async getMe() {
-        try {
-            const response = await fetch(`${this.baseURL}/getMe?token=${this.token}`);
-            return await response.json();
-        } catch (error) {
-            return { ok: false, error: error.message };
-        }
-    }
-}
+    <button onclick="sendMessage()">ارسال پیام</button>
 
-// استفاده
-const eitaa = new EitaaAPI("bot418506:17ca931f-7807-4de8-844c-07b815cb3a95");
+    <script>
+        // کد API تو اینجا میاد
+        async function sendMessage() {
+            const TOKEN = "bot418506:17ca931f-7807-4de8-844c-07b815cb3a95";
+            const CHAT_ID = "eitaayar";
+            
+            try {
+                const response = await fetch(`https://api.eitaa.com/sendMessage?token=${TOKEN}&chat_id=${CHAT_ID}&text=سلام دنیا!`);
+                const result = await response.json();
+                
+                if (result.ok) {
+                    alert("پیام ارسال شد! ✅");
+                } else {
+                    alert("خطا در ارسال! ❌");
+                }
+            } catch (error) {
+                console.error("خطا:", error);
+            }
+        }
+    </script>
+</body>
+</html>
